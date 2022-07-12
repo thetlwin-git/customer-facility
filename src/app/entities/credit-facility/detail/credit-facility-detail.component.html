@@ -1,0 +1,84 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="creditFacility">
+      <h2 data-cy="creditFacilityDetailsHeading"><span>Credit Facility</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ creditFacility.id }}</span>
+        </dd>
+        <dt><span>Total Limit</span></dt>
+        <dd>
+          <span>{{ creditFacility.totalLimit }}</span>
+        </dd>
+        <dt><span>Available Limit</span></dt>
+        <dd>
+          <span>{{ creditFacility.availableLimit }}</span>
+        </dd>
+        <dt><span>Start Date</span></dt>
+        <dd>
+          <span>{{ creditFacility.startDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span>End Date</span></dt>
+        <dd>
+          <span>{{ creditFacility.endDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span>Status</span></dt>
+        <dd>
+          <span>{{ creditFacility.status }}</span>
+        </dd>
+        <dt><span>Edited By</span></dt>
+        <dd>
+          <span>{{ creditFacility.editedBy }}</span>
+        </dd>
+        <dt><span>Edited On</span></dt>
+        <dd>
+          <span>{{ creditFacility.editedOn | formatMediumDate }}</span>
+        </dd>
+        <dt><span>Created By</span></dt>
+        <dd>
+          <span>{{ creditFacility.createdBy }}</span>
+        </dd>
+        <dt><span>Created On</span></dt>
+        <dd>
+          <span>{{ creditFacility.createdOn | formatMediumDate }}</span>
+        </dd>
+        <dt><span>Applicant</span></dt>
+        <dd>
+          <div *ngIf="creditFacility.applicant">
+            <a [routerLink]="['/applicant', creditFacility.applicant?.id, 'view']">{{ creditFacility.applicant?.fullName }}</a>
+          </div>
+        </dd>
+        <dt><span>Credit Facility Loan Limit</span></dt>
+        <dd>
+          <div *ngIf="creditFacility.creditFacilityLoanLimit">
+            <a [routerLink]="['/credit-facility-loan-limit', creditFacility.creditFacilityLoanLimit?.id, 'view']">{{
+              creditFacility.creditFacilityLoanLimit?.id
+            }}</a>
+          </div>
+        </dd>
+        <dt><span>Currency</span></dt>
+        <dd>
+          <div *ngIf="creditFacility.currency">
+            <a [routerLink]="['/currency', creditFacility.currency?.id, 'view']">{{ creditFacility.currency?.code }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/credit-facility', creditFacility.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

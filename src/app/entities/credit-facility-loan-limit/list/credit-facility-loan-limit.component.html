@@ -1,0 +1,114 @@
+<div>
+  <h2 id="page-heading" data-cy="CreditFacilityLoanLimitHeading">
+    <span>Credit Facility Loan Limits</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-credit-facility-loan-limit"
+        [routerLink]="['/credit-facility-loan-limit/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Credit Facility Loan Limit </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="creditFacilityLoanLimits?.length === 0">
+    <span>No creditFacilityLoanLimits found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="creditFacilityLoanLimits && creditFacilityLoanLimits.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
+          <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="totalLimit"><span>Total Limit</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="status"><span>Status</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="editedBy"><span>Edited By</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="editedOn"><span>Edited On</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="createdBy"><span>Created By</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="createdOn"><span>Created On</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="loanType.code"><span>Loan Type</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let creditFacilityLoanLimit of creditFacilityLoanLimits; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/credit-facility-loan-limit', creditFacilityLoanLimit.id, 'view']">{{ creditFacilityLoanLimit.id }}</a>
+          </td>
+          <td>{{ creditFacilityLoanLimit.totalLimit }}</td>
+          <td>{{ creditFacilityLoanLimit.status }}</td>
+          <td>{{ creditFacilityLoanLimit.editedBy }}</td>
+          <td>{{ creditFacilityLoanLimit.editedOn | formatMediumDate }}</td>
+          <td>{{ creditFacilityLoanLimit.createdBy }}</td>
+          <td>{{ creditFacilityLoanLimit.createdOn | formatMediumDate }}</td>
+          <td>
+            <div *ngIf="creditFacilityLoanLimit.loanType">
+              <a [routerLink]="['/loan-type', creditFacilityLoanLimit.loanType?.id, 'view']">{{
+                creditFacilityLoanLimit.loanType?.code
+              }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/credit-facility-loan-limit', creditFacilityLoanLimit.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/credit-facility-loan-limit', creditFacilityLoanLimit.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(creditFacilityLoanLimit)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="creditFacilityLoanLimits && creditFacilityLoanLimits.length > 0">
+    <div class="d-flex justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

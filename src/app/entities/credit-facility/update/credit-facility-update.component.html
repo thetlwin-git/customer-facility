@@ -1,0 +1,216 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-credit-facility-heading" data-cy="CreditFacilityCreateUpdateHeading">Create or edit a Credit Facility</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_totalLimit">Total Limit</label>
+          <input
+            type="number"
+            class="form-control"
+            name="totalLimit"
+            id="field_totalLimit"
+            data-cy="totalLimit"
+            formControlName="totalLimit"
+          />
+          <div *ngIf="editForm.get('totalLimit')!.invalid && (editForm.get('totalLimit')!.dirty || editForm.get('totalLimit')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('totalLimit')?.errors?.required"> This field is required. </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('totalLimit')?.errors?.number">
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_availableLimit">Available Limit</label>
+          <input
+            type="number"
+            class="form-control"
+            name="availableLimit"
+            id="field_availableLimit"
+            data-cy="availableLimit"
+            formControlName="availableLimit"
+          />
+          <div
+            *ngIf="
+              editForm.get('availableLimit')!.invalid && (editForm.get('availableLimit')!.dirty || editForm.get('availableLimit')!.touched)
+            "
+          >
+            <small class="form-text text-danger" *ngIf="editForm.get('availableLimit')?.errors?.required"> This field is required. </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('availableLimit')?.errors?.number">
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_startDate">Start Date</label>
+          <div class="input-group">
+            <input
+              id="field_startDate"
+              data-cy="startDate"
+              type="text"
+              class="form-control"
+              name="startDate"
+              ngbDatepicker
+              #startDateDp="ngbDatepicker"
+              formControlName="startDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="startDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+          <div *ngIf="editForm.get('startDate')!.invalid && (editForm.get('startDate')!.dirty || editForm.get('startDate')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('startDate')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_endDate">End Date</label>
+          <div class="input-group">
+            <input
+              id="field_endDate"
+              data-cy="endDate"
+              type="text"
+              class="form-control"
+              name="endDate"
+              ngbDatepicker
+              #endDateDp="ngbDatepicker"
+              formControlName="endDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="endDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_status">Status</label>
+          <select class="form-control" name="status" formControlName="status" id="field_status" data-cy="status">
+            <option [ngValue]="null"></option>
+            <option *ngFor="let status of statusValues" [value]="status">status</option>
+          </select>
+          <div *ngIf="editForm.get('status')!.invalid && (editForm.get('status')!.dirty || editForm.get('status')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('status')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_editedBy">Edited By</label>
+          <input type="text" class="form-control" name="editedBy" id="field_editedBy" data-cy="editedBy" formControlName="editedBy" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_editedOn">Edited On</label>
+          <div class="input-group">
+            <input
+              id="field_editedOn"
+              data-cy="editedOn"
+              type="text"
+              class="form-control"
+              name="editedOn"
+              ngbDatepicker
+              #editedOnDp="ngbDatepicker"
+              formControlName="editedOn"
+            />
+            <button type="button" class="btn btn-secondary" (click)="editedOnDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_createdBy">Created By</label>
+          <input type="text" class="form-control" name="createdBy" id="field_createdBy" data-cy="createdBy" formControlName="createdBy" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_createdOn">Created On</label>
+          <div class="input-group">
+            <input
+              id="field_createdOn"
+              data-cy="createdOn"
+              type="text"
+              class="form-control"
+              name="createdOn"
+              ngbDatepicker
+              #createdOnDp="ngbDatepicker"
+              formControlName="createdOn"
+            />
+            <button type="button" class="btn btn-secondary" (click)="createdOnDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_applicant">Applicant</label>
+          <select class="form-control" id="field_applicant" data-cy="applicant" name="applicant" formControlName="applicant">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="applicantOption.id === editForm.get('applicant')!.value?.id ? editForm.get('applicant')!.value : applicantOption"
+              *ngFor="let applicantOption of applicantsCollection; trackBy: trackApplicantById"
+            >
+              {{ applicantOption.fullName }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_creditFacilityLoanLimit">Credit Facility Loan Limit</label>
+          <select
+            class="form-control"
+            id="field_creditFacilityLoanLimit"
+            data-cy="creditFacilityLoanLimit"
+            name="creditFacilityLoanLimit"
+            formControlName="creditFacilityLoanLimit"
+          >
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                creditFacilityLoanLimitOption.id === editForm.get('creditFacilityLoanLimit')!.value?.id
+                  ? editForm.get('creditFacilityLoanLimit')!.value
+                  : creditFacilityLoanLimitOption
+              "
+              *ngFor="
+                let creditFacilityLoanLimitOption of creditFacilityLoanLimitsSharedCollection;
+                trackBy: trackCreditFacilityLoanLimitById
+              "
+            >
+              {{ creditFacilityLoanLimitOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_currency">Currency</label>
+          <select class="form-control" id="field_currency" data-cy="currency" name="currency" formControlName="currency">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="currencyOption.id === editForm.get('currency')!.value?.id ? editForm.get('currency')!.value : currencyOption"
+              *ngFor="let currencyOption of currenciesSharedCollection; trackBy: trackCurrencyById"
+            >
+              {{ currencyOption.code }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
