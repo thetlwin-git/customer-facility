@@ -11,7 +11,7 @@ import { CreditFacilityLoanLimitService } from '../service/credit-facility-loan-
 import { CreditFacilityLoanLimitDeleteDialogComponent } from '../delete/credit-facility-loan-limit-delete-dialog.component';
 
 @Component({
-  selector: 'jhi-credit-facility-loan-limit',
+  selector: 'app-credit-facility-loan-limit',
   templateUrl: './credit-facility-loan-limit.component.html',
 })
 export class CreditFacilityLoanLimitComponent implements OnInit {

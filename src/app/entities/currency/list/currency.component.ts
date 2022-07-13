@@ -7,7 +7,7 @@ import { CurrencyService } from '../service/currency.service';
 import { CurrencyDeleteDialogComponent } from '../delete/currency-delete-dialog.component';
 
 @Component({
-  selector: 'jhi-currency',
+  selector: 'app-currency',
   templateUrl: './currency.component.html',
 })
 export class CurrencyComponent implements OnInit {

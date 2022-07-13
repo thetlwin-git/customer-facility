@@ -12,7 +12,7 @@ import { LoanTypeService } from 'src/app/entities/loan-type/service/loan-type.se
 import { Status } from 'src/app/entities/enumerations/status.model';
 
 @Component({
-  selector: 'jhi-credit-facility-loan-limit-update',
+  selector: 'app-credit-facility-loan-limit-update',
   templateUrl: './credit-facility-loan-limit-update.component.html',
 })
 export class CreditFacilityLoanLimitUpdateComponent implements OnInit {

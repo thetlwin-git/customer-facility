@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ICreditFacility } from '../credit-facility.model';
 
 @Component({
-  selector: 'jhi-credit-facility-detail',
+  selector: 'app-credit-facility-detail',
   templateUrl: './credit-facility-detail.component.html',
 })
 export class CreditFacilityDetailComponent implements OnInit {

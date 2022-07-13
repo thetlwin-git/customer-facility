@@ -6,7 +6,7 @@ import { LoginService } from 'src/app/login/login.service';
 import { AccountService } from 'src/app/core/auth/account.service';
 
 @Component({
-  selector: 'jhi-login',
+  selector: 'app-login',
   templateUrl: './login.component.html',
 })
 export class LoginComponent implements OnInit, AfterViewInit {

@@ -16,7 +16,7 @@ import { CurrencyService } from 'src/app/entities/currency/service/currency.serv
 import { Status } from 'src/app/entities/enumerations/status.model';
 
 @Component({
-  selector: 'jhi-credit-facility-update',
+  selector: 'app-credit-facility-update',
   templateUrl: './credit-facility-update.component.html',
 })
 export class CreditFacilityUpdateComponent implements OnInit {

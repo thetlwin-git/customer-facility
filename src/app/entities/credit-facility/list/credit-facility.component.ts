@@ -11,7 +11,7 @@ import { CreditFacilityService } from '../service/credit-facility.service';
 import { CreditFacilityDeleteDialogComponent } from '../delete/credit-facility-delete-dialog.component';
 
 @Component({
-  selector: 'jhi-credit-facility',
+  selector: 'app-credit-facility',
   templateUrl: './credit-facility.component.html',
 })
 export class CreditFacilityComponent implements OnInit {

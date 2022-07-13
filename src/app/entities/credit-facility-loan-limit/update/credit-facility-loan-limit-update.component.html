@@ -1,12 +1,12 @@
 <div class="d-flex justify-content-center">
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <h2 id="jhi-credit-facility-loan-limit-heading" data-cy="CreditFacilityLoanLimitCreateUpdateHeading">
+      <h2 id="app-credit-facility-loan-limit-heading" data-cy="CreditFacilityLoanLimitCreateUpdateHeading">
         Create or edit a Credit Facility Loan Limit
       </h2>
 
       <div>
-        <jhi-alert-error></jhi-alert-error>
+        <app-alert-error></app-alert-error>
 
         <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
           <label class="form-label" for="field_id">ID</label>

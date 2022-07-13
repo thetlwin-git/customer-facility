@@ -7,7 +7,7 @@ import { LoanTypeService } from '../service/loan-type.service';
 import { LoanTypeDeleteDialogComponent } from '../delete/loan-type-delete-dialog.component';
 
 @Component({
-  selector: 'jhi-loan-type',
+  selector: 'app-loan-type',
   templateUrl: './loan-type.component.html',
 })
 export class LoanTypeComponent implements OnInit {

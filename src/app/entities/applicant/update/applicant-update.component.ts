@@ -12,7 +12,7 @@ import { UserService } from 'src/app/entities/user/user.service';
 import { Status } from 'src/app/entities/enumerations/status.model';
 
 @Component({
-  selector: 'jhi-applicant-update',
+  selector: 'app-applicant-update',
   templateUrl: './applicant-update.component.html',
 })
 export class ApplicantUpdateComponent implements OnInit {

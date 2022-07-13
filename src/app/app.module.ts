@@ -1,5 +1,5 @@
 import { NgModule, LOCALE_ID } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { registerLocaleData } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
@@ -26,13 +26,18 @@ import { ErrorComponent } from './layouts/error/error.component';
   declarations: [MainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, FooterComponent],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     SharedModule,
     HomeModule,
+    AppRoutingModule,
     HttpClientModule,
-    NgxWebstorageModule.forRoot({ prefix: 'jhi', separator: '-', caseSensitive: true }),
+    NgxWebstorageModule.forRoot({ prefix: 'app', separator: '-', caseSensitive: true }),
   ],
-  providers: [{ provide: LOCALE_ID, useValue: 'en' }, { provide: NgbDateAdapter, useClass: NgbDateDayjsAdapter }, httpInterceptorProviders],
+  providers: [
+    Title,
+    { provide: LOCALE_ID, useValue: 'en' },
+    { provide: NgbDateAdapter, useClass: NgbDateDayjsAdapter },
+    httpInterceptorProviders,
+  ],
   bootstrap: [MainComponent],
 })
 export class AppModule {

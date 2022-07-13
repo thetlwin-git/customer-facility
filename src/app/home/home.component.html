@@ -1,4 +1,50 @@
-<div [ngSwitch]="account !== null">
+<div class="row">
+  <div class="col-md-12">
+    <h1 class="display-4 title"><span>Welcome, Credit Facility Customer Portal</span></h1>
+
+    <div [ngSwitch]="account !== null">
+      <p class="lead" *ngSwitchCase="true">
+        <span id="home-logged-message" *ngIf="account">You are logged in as user "{{ account.login }}".</span>
+      </p>
+
+      <div class="alert alert-warning" *ngSwitchCase="false">
+        <span>If you want to </span>
+        <a class="alert-link" (click)="login()">sign in</a
+        ><span
+          >, you can try the default accounts:<br />- Administrator (login="admin" and password="admin") <br />- User (login="user" and
+          password="user").</span
+        >
+      </div>
+
+      <div class="alert alert-warning" *ngSwitchCase="false">
+        <span>You don't have an account yet?</span>&nbsp;
+        <a class="alert-link" routerLink="account/register">Register a new account</a>
+      </div>
+
+      <div class="container" *ngSwitchCase="true">
+        <div class="row">
+          <div class="col-lg-4 col-md-6 col-sm-6 col-sm-12">
+            <div class="card text-bg-info border-info mb-3">
+              <div class="card-body">
+                <h5 class="card-title">View all facilities</h5>
+                <p class="card-text">View all facilities</p>
+                <a
+                  routerLink="credit-facility"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  class="btn btn-outline-primary"
+                  >Go</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div [ngSwitch]="account !== null">
   <div *ngSwitchCase="true">
     <h2>Hello, {{ account?.login }}</h2>
     <p>Welcome from credit facility customer portal</p>
@@ -23,4 +69,4 @@
       </a>
     </div>
   </div>
-</div>
+</div> -->

@@ -10,7 +10,7 @@ import { LoanTypeService } from '../service/loan-type.service';
 import { Status } from 'src/app/entities/enumerations/status.model';
 
 @Component({
-  selector: 'jhi-loan-type-update',
+  selector: 'app-loan-type-update',
   templateUrl: './loan-type-update.component.html',
 })
 export class LoanTypeUpdateComponent implements OnInit {

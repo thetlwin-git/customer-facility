@@ -11,7 +11,7 @@ import { ApplicantService } from '../service/applicant.service';
 import { ApplicantDeleteDialogComponent } from '../delete/applicant-delete-dialog.component';
 
 @Component({
-  selector: 'jhi-applicant',
+  selector: 'app-applicant',
   templateUrl: './applicant.component.html',
 })
 export class ApplicantComponent implements OnInit {

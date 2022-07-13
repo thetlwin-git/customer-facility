@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ICreditFacilityLoanLimit } from '../credit-facility-loan-limit.model';
 
 @Component({
-  selector: 'jhi-credit-facility-loan-limit-detail',
+  selector: 'app-credit-facility-loan-limit-detail',
   templateUrl: './credit-facility-loan-limit-detail.component.html',
 })
 export class CreditFacilityLoanLimitDetailComponent implements OnInit {

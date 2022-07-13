@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ICurrency } from '../currency.model';
 
 @Component({
-  selector: 'jhi-currency-detail',
+  selector: 'app-currency-detail',
   templateUrl: './currency-detail.component.html',
 })
 export class CurrencyDetailComponent implements OnInit {

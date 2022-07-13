@@ -6,7 +6,7 @@ import { EMAIL_ALREADY_USED_TYPE, LOGIN_ALREADY_USED_TYPE } from 'src/app/config
 import { RegisterService } from './register.service';
 
 @Component({
-  selector: 'jhi-register',
+  selector: 'app-register',
   templateUrl: './register.component.html',
 })
 export class RegisterComponent implements AfterViewInit {

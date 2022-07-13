@@ -10,7 +10,7 @@ import { CurrencyService } from '../service/currency.service';
 import { Status } from 'src/app/entities/enumerations/status.model';
 
 @Component({
-  selector: 'jhi-currency-update',
+  selector: 'app-currency-update',
   templateUrl: './currency-update.component.html',
 })
 export class CurrencyUpdateComponent implements OnInit {

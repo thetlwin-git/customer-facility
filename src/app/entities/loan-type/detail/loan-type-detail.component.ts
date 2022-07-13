@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ILoanType } from '../loan-type.model';
 
 @Component({
-  selector: 'jhi-loan-type-detail',
+  selector: 'app-loan-type-detail',
   templateUrl: './loan-type-detail.component.html',
 })
 export class LoanTypeDetailComponent implements OnInit {

@@ -1,4 +1,18 @@
-h2,
-p {
+/* ==========================================================================
+Main page styles
+========================================================================== */
+
+.card-text {
+  min-height: 48px;
+  max-height: 48px;
+  text-decoration: none;
+}
+
+.card-title {
+  text-decoration: none;
+}
+
+.title,
+.lead {
   text-align: center;
 }
