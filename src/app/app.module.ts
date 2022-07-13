@@ -11,7 +11,6 @@ import { fontAwesomeIcons } from './config/font-awesome-icons';
 import dayjs from 'dayjs/esm';
 import './config/dayjs';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { TranslationModule } from 'src/app/shared/language/translation.module';
 import { httpInterceptorProviders } from 'src/app/core/interceptor/index';
 import { SERVER_API_URL } from 'src/app/app.constants';
 import { HttpClientModule } from '@angular/common/http';
@@ -32,7 +31,6 @@ import { ErrorComponent } from './layouts/error/error.component';
     AppRoutingModule,
     HttpClientModule,
     NgxWebstorageModule.forRoot({ prefix: 'app', separator: '-', caseSensitive: true }),
-    TranslationModule,
   ],
   providers: [
     Title,

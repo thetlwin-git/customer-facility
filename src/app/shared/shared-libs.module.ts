@@ -8,4 +8,4 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 @NgModule({
   exports: [FormsModule, CommonModule, NgbModule, InfiniteScrollModule, FontAwesomeModule, ReactiveFormsModule],
 })
-export class SharedLibsModule {}
+export class SharedLibsModule { }
