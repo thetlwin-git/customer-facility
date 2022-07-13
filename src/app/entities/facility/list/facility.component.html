@@ -1,0 +1,90 @@
+<div>
+  <h2 id="page-heading" data-cy="FacilityHeading">
+    <span>Facilities</span>
+  </h2>
+
+  <app-alert-error></app-alert-error>
+
+  <app-alert></app-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="loans?.length === 0">
+    <span>No Facilities found</span>
+  </div>
+
+  <!-- <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0" id="entities" *ngIf="loans && loans.length > 0">
+    <ngb-panel *ngFor="let loan of loans; trackBy: trackId" data-cy="entityTable">
+      <ng-template ngbPanelTitle>
+        <span>{{loan.facility?.code}} - {{loan.currency?.code}}</span>
+        <span> ({{loan.loanType?.label}}) </span>
+      </ng-template>
+      <ng-template ngbPanelContent>
+        {{loan.amount}}
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion> -->
+
+  <h1 class="display-5" *ngIf="loans && loans.length > 0">
+    <span>{{loans[0].facility?.code}} - {{loans[0].currency?.code}}</span>
+  </h1>
+
+  <table class="table" *ngIf="loans && loans.length > 0">
+    <thead>
+      <tr>
+        <th scope="col">Total Limit</th>
+        <th scope="col">Available Limit</th>
+        <th scope="col">Start Date</th>
+        <th scope="col">End Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{loans[0].facility?.totalLimit}}</td>
+        <td>{{loans[0].facility?.availableLimit}}</td>
+        <td>{{loans[0].facility?.startDate| formatMediumDate }}</td>
+        <td>{{loans[0].facility?.endDate| formatMediumDate }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div id="entities" *ngIf="loans && loans.length > 0">
+    <div class="card" *ngFor="let loan of loans; trackBy: trackId" data-cy="loan">
+      <div class="card-body">
+        <h1 class="card-title display-6">
+          <span>{{loan.loanType?.label}}</span>
+        </h1>
+
+        <div class="table-responsive">
+          <table class="table">
+            <caption>Summary of loan</caption>
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Start Date</th>
+                <th scope="col">End Date</th>
+                <th scope="col">Interest Rate</th>
+                <th scope="col">Interest Amount</th>
+                <th scope="col">Total Payment Amount</th>
+                <th scope="col">Remaining Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">{{loan.id}}</th>
+                <td>{{loan.amount}}</td>
+                <td>{{loan.startDate | formatMediumDate }}</td>
+                <td>{{loan.endDate | formatMediumDate }}</td>
+                <td>{{loan.interestRate}}</td>
+                <td>{{loan.interestAmount}}</td>
+                <td>{{loan.totalPaymentAmount}}</td>
+                <td>{{loan.remainingAmount}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>

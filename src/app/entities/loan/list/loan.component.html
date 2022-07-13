@@ -1,0 +1,126 @@
+<div>
+  <h2 id="page-heading" data-cy="LoanHeading">
+    <span>Loans</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-loan"
+        [routerLink]="['/loan/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Loan </span>
+      </button>
+    </div>
+  </h2>
+
+  <app-alert-error></app-alert-error>
+
+  <app-alert></app-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="loans?.length === 0">
+    <span>No loans found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="loans && loans.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
+          <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="amount"><span>Amount</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="startDate"><span>Start Date</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="endDate"><span>End Date</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="interestRate"><span>Interest Rate</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="interestAmount"><span>Interest Amount</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="totalPaymentAmount"><span>Total Payment Amount</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="remainingAmount"><span>Remaining Amount</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="status"><span>Status</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="editedBy"><span>Edited By</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="editedOn"><span>Edited On</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="createdBy"><span>Created By</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="createdOn"><span>Created On</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="currency.code"><span>Currency</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="facility.code"><span>Facility</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="loanType.code"><span>Loan Type</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let loan of loans; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/loan', loan.id, 'view']">{{ loan.id }}</a>
+          </td>
+          <td>{{ loan.amount }}</td>
+          <td>{{ loan.startDate | formatMediumDate }}</td>
+          <td>{{ loan.endDate | formatMediumDate }}</td>
+          <td>{{ loan.interestRate }}</td>
+          <td>{{ loan.interestAmount }}</td>
+          <td>{{ loan.totalPaymentAmount }}</td>
+          <td>{{ loan.remainingAmount }}</td>
+          <td>{{ loan.status }}</td>
+          <td>{{ loan.editedBy }}</td>
+          <td>{{ loan.editedOn | formatMediumDate }}</td>
+          <td>{{ loan.createdBy }}</td>
+          <td>{{ loan.createdOn | formatMediumDate }}</td>
+          <td>
+            <div *ngIf="loan.currency">
+              <a [routerLink]="['/currency', loan.currency?.id, 'view']">{{ loan.currency?.code }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="loan.facility">
+              <a [routerLink]="['/credit-facility', loan.facility?.id, 'view']">{{ loan.facility?.code }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="loan.loanType">
+              <a [routerLink]="['/loan-type', loan.loanType?.id, 'view']">{{ loan.loanType?.code }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/loan', loan.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/loan', loan.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(loan)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="loans && loans.length > 0">
+    <div class="d-flex justify-content-center">
+      <app-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></app-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>
