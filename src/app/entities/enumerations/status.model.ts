@@ -1,7 +1,7 @@
 export enum Status {
-  PENDING = 'PENDING',
+  PENDING = 'Pending',
 
-  DELETED = 'DELETED',
+  DELETED = 'Deleted',
 
-  AVAILABLE = 'AVAILABLE',
+  AVAILABLE = 'Available',
 }

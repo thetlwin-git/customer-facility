@@ -1,0 +1,56 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="loanPayment">
+      <h2 data-cy="loanPaymentDetailsHeading"><span jhiTranslate="facilityApp.loanPayment.detail.title">Loan Payment</span></h2>
+
+      <hr />
+
+      <app-alert-error></app-alert-error>
+
+      <app-alert></app-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ loanPayment.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="facilityApp.loanPayment.amount">Amount</span></dt>
+        <dd>
+          <span>{{ loanPayment.amount }}</span>
+        </dd>
+        <dt><span jhiTranslate="facilityApp.loanPayment.paymentDate">Payment Date</span></dt>
+        <dd>
+          <span>{{ loanPayment.paymentDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="facilityApp.loanPayment.status">Status</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'facilityApp.Status.' + loanPayment.status }}">{{ loanPayment.status }}</span>
+        </dd>
+        <dt><span jhiTranslate="facilityApp.loanPayment.editedBy">Edited By</span></dt>
+        <dd>
+          <span>{{ loanPayment.editedBy }}</span>
+        </dd>
+        <dt><span jhiTranslate="facilityApp.loanPayment.editedOn">Edited On</span></dt>
+        <dd>
+          <span>{{ loanPayment.editedOn | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="facilityApp.loanPayment.createdBy">Created By</span></dt>
+        <dd>
+          <span>{{ loanPayment.createdBy }}</span>
+        </dd>
+        <dt><span jhiTranslate="facilityApp.loanPayment.createdOn">Created On</span></dt>
+        <dd>
+          <span>{{ loanPayment.createdOn | formatMediumDate }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/loan-payment', loanPayment.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

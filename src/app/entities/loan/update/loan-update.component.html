@@ -1,0 +1,318 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="app-loan-heading" data-cy="LoanCreateUpdateHeading" jhiTranslate="facilityApp.loan.home.createOrEditLabel">
+        Create or edit a Loan
+      </h2>
+
+      <div>
+        <app-alert-error></app-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="facilityApp.loan.amount" for="field_amount">Amount</label>
+          <input type="number" class="form-control" name="amount" id="field_amount" data-cy="amount" formControlName="amount" />
+          <div *ngIf="editForm.get('amount')!.invalid && (editForm.get('amount')!.dirty || editForm.get('amount')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('amount')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('amount')?.errors?.number" jhiTranslate="entity.validation.number">
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="facilityApp.loan.startDate" for="field_startDate">Start Date</label>
+          <div class="input-group">
+            <input
+              id="field_startDate"
+              data-cy="startDate"
+              type="text"
+              class="form-control"
+              name="startDate"
+              ngbDatepicker
+              #startDateDp="ngbDatepicker"
+              formControlName="startDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="startDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+          <div *ngIf="editForm.get('startDate')!.invalid && (editForm.get('startDate')!.dirty || editForm.get('startDate')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('startDate')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="facilityApp.loan.endDate" for="field_endDate">End Date</label>
+          <div class="input-group">
+            <input
+              id="field_endDate"
+              data-cy="endDate"
+              type="text"
+              class="form-control"
+              name="endDate"
+              ngbDatepicker
+              #endDateDp="ngbDatepicker"
+              formControlName="endDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="endDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="facilityApp.loan.interestRate" for="field_interestRate">Interest Rate</label>
+          <input
+            type="number"
+            class="form-control"
+            name="interestRate"
+            id="field_interestRate"
+            data-cy="interestRate"
+            formControlName="interestRate"
+          />
+          <div
+            *ngIf="editForm.get('interestRate')!.invalid && (editForm.get('interestRate')!.dirty || editForm.get('interestRate')!.touched)"
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('interestRate')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('interestRate')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="facilityApp.loan.interestAmount" for="field_interestAmount">Interest Amount</label>
+          <input
+            type="number"
+            class="form-control"
+            name="interestAmount"
+            id="field_interestAmount"
+            data-cy="interestAmount"
+            formControlName="interestAmount"
+          />
+          <div
+            *ngIf="
+              editForm.get('interestAmount')!.invalid && (editForm.get('interestAmount')!.dirty || editForm.get('interestAmount')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('interestAmount')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('interestAmount')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="facilityApp.loan.totalPaymentAmount" for="field_totalPaymentAmount"
+            >Total Payment Amount</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="totalPaymentAmount"
+            id="field_totalPaymentAmount"
+            data-cy="totalPaymentAmount"
+            formControlName="totalPaymentAmount"
+          />
+          <div
+            *ngIf="
+              editForm.get('totalPaymentAmount')!.invalid &&
+              (editForm.get('totalPaymentAmount')!.dirty || editForm.get('totalPaymentAmount')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('totalPaymentAmount')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('totalPaymentAmount')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="facilityApp.loan.remainingAmount" for="field_remainingAmount">Remaining Amount</label>
+          <input
+            type="number"
+            class="form-control"
+            name="remainingAmount"
+            id="field_remainingAmount"
+            data-cy="remainingAmount"
+            formControlName="remainingAmount"
+          />
+          <div
+            *ngIf="
+              editForm.get('remainingAmount')!.invalid &&
+              (editForm.get('remainingAmount')!.dirty || editForm.get('remainingAmount')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('remainingAmount')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('remainingAmount')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="facilityApp.loan.status" for="field_status">Status</label>
+          <select class="form-control" name="status" formControlName="status" id="field_status" data-cy="status">
+            <option [ngValue]="null">{{ 'facilityApp.Status.null' | translate }}</option>
+            <option *ngFor="let status of statusValues" [value]="status">{{ 'facilityApp.Status.' + status | translate }}</option>
+          </select>
+          <div *ngIf="editForm.get('status')!.invalid && (editForm.get('status')!.dirty || editForm.get('status')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('status')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="facilityApp.loan.editedBy" for="field_editedBy">Edited By</label>
+          <input type="text" class="form-control" name="editedBy" id="field_editedBy" data-cy="editedBy" formControlName="editedBy" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="facilityApp.loan.editedOn" for="field_editedOn">Edited On</label>
+          <div class="input-group">
+            <input
+              id="field_editedOn"
+              data-cy="editedOn"
+              type="text"
+              class="form-control"
+              name="editedOn"
+              ngbDatepicker
+              #editedOnDp="ngbDatepicker"
+              formControlName="editedOn"
+            />
+            <button type="button" class="btn btn-secondary" (click)="editedOnDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="facilityApp.loan.createdBy" for="field_createdBy">Created By</label>
+          <input type="text" class="form-control" name="createdBy" id="field_createdBy" data-cy="createdBy" formControlName="createdBy" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="facilityApp.loan.createdOn" for="field_createdOn">Created On</label>
+          <div class="input-group">
+            <input
+              id="field_createdOn"
+              data-cy="createdOn"
+              type="text"
+              class="form-control"
+              name="createdOn"
+              ngbDatepicker
+              #createdOnDp="ngbDatepicker"
+              formControlName="createdOn"
+            />
+            <button type="button" class="btn btn-secondary" (click)="createdOnDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="facilityApp.loan.currency" for="field_currency">Currency</label>
+          <select class="form-control" id="field_currency" data-cy="currency" name="currency" formControlName="currency">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="currencyOption.id === editForm.get('currency')!.value?.id ? editForm.get('currency')!.value : currencyOption"
+              *ngFor="let currencyOption of currenciesSharedCollection; trackBy: trackCurrencyById"
+            >
+              {{ currencyOption.code }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="facilityApp.loan.facility" for="field_facility">Facility</label>
+          <select class="form-control" id="field_facility" data-cy="facility" name="facility" formControlName="facility">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                creditFacilityOption.id === editForm.get('facility')!.value?.id ? editForm.get('facility')!.value : creditFacilityOption
+              "
+              *ngFor="let creditFacilityOption of creditFacilitiesSharedCollection; trackBy: trackCreditFacilityById"
+            >
+              {{ creditFacilityOption.code }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="facilityApp.loan.loanType" for="field_loanType">Loan Type</label>
+          <select class="form-control" id="field_loanType" data-cy="loanType" name="loanType" formControlName="loanType">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="loanTypeOption.id === editForm.get('loanType')!.value?.id ? editForm.get('loanType')!.value : loanTypeOption"
+              *ngFor="let loanTypeOption of loanTypesSharedCollection; trackBy: trackLoanTypeById"
+            >
+              {{ loanTypeOption.code }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

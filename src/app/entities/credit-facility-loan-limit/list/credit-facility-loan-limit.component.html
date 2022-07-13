@@ -1,11 +1,11 @@
 <div>
   <h2 id="page-heading" data-cy="CreditFacilityLoanLimitHeading">
-    <span>Credit Facility Loan Limits</span>
+    <span jhiTranslate="facilityApp.creditFacilityLoanLimit.home.title">Credit Facility Loan Limits</span>
 
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="loadPage()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span>Refresh List</span>
+        <span jhiTranslate="facilityApp.creditFacilityLoanLimit.home.refreshListLabel">Refresh List</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/credit-facility-loan-limit/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span> Create a new Credit Facility Loan Limit </span>
+        <span jhiTranslate="facilityApp.creditFacilityLoanLimit.home.createLabel"> Create a new Credit Facility Loan Limit </span>
       </button>
     </div>
   </h2>
@@ -25,21 +25,38 @@
   <app-alert></app-alert>
 
   <div class="alert alert-warning" id="no-result" *ngIf="creditFacilityLoanLimits?.length === 0">
-    <span>No creditFacilityLoanLimits found</span>
+    <span jhiTranslate="facilityApp.creditFacilityLoanLimit.home.notFound">No creditFacilityLoanLimits found</span>
   </div>
 
   <div class="table-responsive" id="entities" *ngIf="creditFacilityLoanLimits && creditFacilityLoanLimits.length > 0">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
-          <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="totalLimit"><span>Total Limit</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="status"><span>Status</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="editedBy"><span>Edited By</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="editedOn"><span>Edited On</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="createdBy"><span>Created By</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="createdOn"><span>Created On</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="loanType.code"><span>Loan Type</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="code">
+            <span jhiTranslate="facilityApp.creditFacilityLoanLimit.code">Code</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="totalLimit">
+            <span jhiTranslate="facilityApp.creditFacilityLoanLimit.totalLimit">Total Limit</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="status">
+            <span jhiTranslate="facilityApp.creditFacilityLoanLimit.status">Status</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="editedBy">
+            <span jhiTranslate="facilityApp.creditFacilityLoanLimit.editedBy">Edited By</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="editedOn">
+            <span jhiTranslate="facilityApp.creditFacilityLoanLimit.editedOn">Edited On</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="createdBy">
+            <span jhiTranslate="facilityApp.creditFacilityLoanLimit.createdBy">Created By</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="createdOn">
+            <span jhiTranslate="facilityApp.creditFacilityLoanLimit.createdOn">Created On</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="loanType.code">
+            <span jhiTranslate="facilityApp.creditFacilityLoanLimit.loanType">Loan Type</span> <fa-icon icon="sort"></fa-icon>
+          </th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -48,8 +65,9 @@
           <td>
             <a [routerLink]="['/credit-facility-loan-limit', creditFacilityLoanLimit.id, 'view']">{{ creditFacilityLoanLimit.id }}</a>
           </td>
+          <td>{{ creditFacilityLoanLimit.code }}</td>
           <td>{{ creditFacilityLoanLimit.totalLimit }}</td>
-          <td>{{ creditFacilityLoanLimit.status }}</td>
+          <td jhiTranslate="{{ 'facilityApp.Status.' + creditFacilityLoanLimit.status }}">{{ creditFacilityLoanLimit.status }}</td>
           <td>{{ creditFacilityLoanLimit.editedBy }}</td>
           <td>{{ creditFacilityLoanLimit.editedOn | formatMediumDate }}</td>
           <td>{{ creditFacilityLoanLimit.createdBy }}</td>
@@ -70,7 +88,7 @@
                 data-cy="entityDetailsButton"
               >
                 <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline">View</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
               </button>
 
               <button
@@ -80,12 +98,12 @@
                 data-cy="entityEditButton"
               >
                 <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline">Edit</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
               </button>
 
               <button type="submit" (click)="delete(creditFacilityLoanLimit)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                 <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline">Delete</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
               </button>
             </div>
           </td>

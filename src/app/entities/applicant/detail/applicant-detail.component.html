@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-center">
   <div class="col-8">
     <div *ngIf="applicant">
-      <h2 data-cy="applicantDetailsHeading"><span>Applicant</span></h2>
+      <h2 data-cy="applicantDetailsHeading"><span jhiTranslate="facilityApp.applicant.detail.title">Applicant</span></h2>
 
       <hr />
 
@@ -10,58 +10,58 @@
       <app-alert></app-alert>
 
       <dl class="row-md jh-entity-details">
-        <dt><span>ID</span></dt>
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
         <dd>
           <span>{{ applicant.id }}</span>
         </dd>
-        <dt><span>Full Name</span></dt>
+        <dt><span jhiTranslate="facilityApp.applicant.fullName">Full Name</span></dt>
         <dd>
           <span>{{ applicant.fullName }}</span>
         </dd>
-        <dt><span>Email</span></dt>
+        <dt><span jhiTranslate="facilityApp.applicant.email">Email</span></dt>
         <dd>
           <span>{{ applicant.email }}</span>
         </dd>
-        <dt><span>Phone Number</span></dt>
+        <dt><span jhiTranslate="facilityApp.applicant.phoneNumber">Phone Number</span></dt>
         <dd>
           <span>{{ applicant.phoneNumber }}</span>
         </dd>
-        <dt><span>Address</span></dt>
+        <dt><span jhiTranslate="facilityApp.applicant.address">Address</span></dt>
         <dd>
           <span>{{ applicant.address }}</span>
         </dd>
-        <dt><span>Status</span></dt>
+        <dt><span jhiTranslate="facilityApp.applicant.status">Status</span></dt>
         <dd>
-          <span>{{ applicant.status }}</span>
+          <span jhiTranslate="{{ 'facilityApp.Status.' + applicant.status }}">{{ applicant.status }}</span>
         </dd>
-        <dt><span>Edited By</span></dt>
+        <dt><span jhiTranslate="facilityApp.applicant.editedBy">Edited By</span></dt>
         <dd>
           <span>{{ applicant.editedBy }}</span>
         </dd>
-        <dt><span>Edited On</span></dt>
+        <dt><span jhiTranslate="facilityApp.applicant.editedOn">Edited On</span></dt>
         <dd>
           <span>{{ applicant.editedOn | formatMediumDate }}</span>
         </dd>
-        <dt><span>Created By</span></dt>
+        <dt><span jhiTranslate="facilityApp.applicant.createdBy">Created By</span></dt>
         <dd>
           <span>{{ applicant.createdBy }}</span>
         </dd>
-        <dt><span>Created On</span></dt>
+        <dt><span jhiTranslate="facilityApp.applicant.createdOn">Created On</span></dt>
         <dd>
           <span>{{ applicant.createdOn | formatMediumDate }}</span>
         </dd>
-        <dt><span>User</span></dt>
+        <dt><span jhiTranslate="facilityApp.applicant.user">User</span></dt>
         <dd>
           <span>{{ applicant.user?.login }}</span>
         </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
-        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
       </button>
 
       <button type="button" [routerLink]="['/applicant', applicant.id, 'edit']" class="btn btn-primary">
-        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
       </button>
     </div>
   </div>

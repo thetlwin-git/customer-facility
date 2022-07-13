@@ -1,7 +1,11 @@
 <div class="d-flex justify-content-center">
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <h2 id="app-credit-facility-loan-limit-heading" data-cy="CreditFacilityLoanLimitCreateUpdateHeading">
+      <h2
+        id="app-credit-facility-loan-limit-heading"
+        data-cy="CreditFacilityLoanLimitCreateUpdateHeading"
+        jhiTranslate="facilityApp.creditFacilityLoanLimit.home.createOrEditLabel"
+      >
         Create or edit a Credit Facility Loan Limit
       </h2>
 
@@ -9,12 +13,22 @@
         <app-alert-error></app-alert-error>
 
         <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
-          <label class="form-label" for="field_id">ID</label>
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" for="field_totalLimit">Total Limit</label>
+          <label class="form-label" jhiTranslate="facilityApp.creditFacilityLoanLimit.code" for="field_code">Code</label>
+          <input type="text" class="form-control" name="code" id="field_code" data-cy="code" formControlName="code" />
+          <div *ngIf="editForm.get('code')!.invalid && (editForm.get('code')!.dirty || editForm.get('code')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('code')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="facilityApp.creditFacilityLoanLimit.totalLimit" for="field_totalLimit">Total Limit</label>
           <input
             type="number"
             class="form-control"
@@ -24,31 +38,43 @@
             formControlName="totalLimit"
           />
           <div *ngIf="editForm.get('totalLimit')!.invalid && (editForm.get('totalLimit')!.dirty || editForm.get('totalLimit')!.touched)">
-            <small class="form-text text-danger" *ngIf="editForm.get('totalLimit')?.errors?.required"> This field is required. </small>
-            <small class="form-text text-danger" [hidden]="!editForm.get('totalLimit')?.errors?.number">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('totalLimit')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('totalLimit')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
               This field should be a number.
             </small>
           </div>
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" for="field_status">Status</label>
+          <label class="form-label" jhiTranslate="facilityApp.creditFacilityLoanLimit.status" for="field_status">Status</label>
           <select class="form-control" name="status" formControlName="status" id="field_status" data-cy="status">
-            <option [ngValue]="null"></option>
-            <option *ngFor="let status of statusValues" [value]="status">status</option>
+            <option [ngValue]="null">{{ 'facilityApp.Status.null' | translate }}</option>
+            <option *ngFor="let status of statusValues" [value]="status">{{ 'facilityApp.Status.' + status | translate }}</option>
           </select>
           <div *ngIf="editForm.get('status')!.invalid && (editForm.get('status')!.dirty || editForm.get('status')!.touched)">
-            <small class="form-text text-danger" *ngIf="editForm.get('status')?.errors?.required"> This field is required. </small>
+            <small class="form-text text-danger" *ngIf="editForm.get('status')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
           </div>
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" for="field_editedBy">Edited By</label>
+          <label class="form-label" jhiTranslate="facilityApp.creditFacilityLoanLimit.editedBy" for="field_editedBy">Edited By</label>
           <input type="text" class="form-control" name="editedBy" id="field_editedBy" data-cy="editedBy" formControlName="editedBy" />
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" for="field_editedOn">Edited On</label>
+          <label class="form-label" jhiTranslate="facilityApp.creditFacilityLoanLimit.editedOn" for="field_editedOn">Edited On</label>
           <div class="input-group">
             <input
               id="field_editedOn"
@@ -65,12 +91,12 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" for="field_createdBy">Created By</label>
+          <label class="form-label" jhiTranslate="facilityApp.creditFacilityLoanLimit.createdBy" for="field_createdBy">Created By</label>
           <input type="text" class="form-control" name="createdBy" id="field_createdBy" data-cy="createdBy" formControlName="createdBy" />
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" for="field_createdOn">Created On</label>
+          <label class="form-label" jhiTranslate="facilityApp.creditFacilityLoanLimit.createdOn" for="field_createdOn">Created On</label>
           <div class="input-group">
             <input
               id="field_createdOn"
@@ -87,7 +113,7 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" for="field_loanType">Loan Type</label>
+          <label class="form-label" jhiTranslate="facilityApp.creditFacilityLoanLimit.loanType" for="field_loanType">Loan Type</label>
           <select class="form-control" id="field_loanType" data-cy="loanType" name="loanType" formControlName="loanType">
             <option [ngValue]="null"></option>
             <option
@@ -102,7 +128,7 @@
 
       <div>
         <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
         </button>
 
         <button
@@ -112,7 +138,7 @@
           [disabled]="editForm.invalid || isSaving"
           class="btn btn-primary"
         >
-          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
         </button>
       </div>
     </form>

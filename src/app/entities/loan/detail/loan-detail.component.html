@@ -1,0 +1,94 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="loan">
+      <h2 data-cy="loanDetailsHeading"><span jhiTranslate="facilityApp.loan.detail.title">Loan</span></h2>
+
+      <hr />
+
+      <app-alert-error></app-alert-error>
+
+      <app-alert></app-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ loan.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="facilityApp.loan.amount">Amount</span></dt>
+        <dd>
+          <span>{{ loan.amount }}</span>
+        </dd>
+        <dt><span jhiTranslate="facilityApp.loan.startDate">Start Date</span></dt>
+        <dd>
+          <span>{{ loan.startDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="facilityApp.loan.endDate">End Date</span></dt>
+        <dd>
+          <span>{{ loan.endDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="facilityApp.loan.interestRate">Interest Rate</span></dt>
+        <dd>
+          <span>{{ loan.interestRate }}</span>
+        </dd>
+        <dt><span jhiTranslate="facilityApp.loan.interestAmount">Interest Amount</span></dt>
+        <dd>
+          <span>{{ loan.interestAmount }}</span>
+        </dd>
+        <dt><span jhiTranslate="facilityApp.loan.totalPaymentAmount">Total Payment Amount</span></dt>
+        <dd>
+          <span>{{ loan.totalPaymentAmount }}</span>
+        </dd>
+        <dt><span jhiTranslate="facilityApp.loan.remainingAmount">Remaining Amount</span></dt>
+        <dd>
+          <span>{{ loan.remainingAmount }}</span>
+        </dd>
+        <dt><span jhiTranslate="facilityApp.loan.status">Status</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'facilityApp.Status.' + loan.status }}">{{ loan.status }}</span>
+        </dd>
+        <dt><span jhiTranslate="facilityApp.loan.editedBy">Edited By</span></dt>
+        <dd>
+          <span>{{ loan.editedBy }}</span>
+        </dd>
+        <dt><span jhiTranslate="facilityApp.loan.editedOn">Edited On</span></dt>
+        <dd>
+          <span>{{ loan.editedOn | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="facilityApp.loan.createdBy">Created By</span></dt>
+        <dd>
+          <span>{{ loan.createdBy }}</span>
+        </dd>
+        <dt><span jhiTranslate="facilityApp.loan.createdOn">Created On</span></dt>
+        <dd>
+          <span>{{ loan.createdOn | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="facilityApp.loan.currency">Currency</span></dt>
+        <dd>
+          <div *ngIf="loan.currency">
+            <a [routerLink]="['/currency', loan.currency?.id, 'view']">{{ loan.currency?.code }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="facilityApp.loan.facility">Facility</span></dt>
+        <dd>
+          <div *ngIf="loan.facility">
+            <a [routerLink]="['/credit-facility', loan.facility?.id, 'view']">{{ loan.facility?.code }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="facilityApp.loan.loanType">Loan Type</span></dt>
+        <dd>
+          <div *ngIf="loan.loanType">
+            <a [routerLink]="['/loan-type', loan.loanType?.id, 'view']">{{ loan.loanType?.code }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/loan', loan.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

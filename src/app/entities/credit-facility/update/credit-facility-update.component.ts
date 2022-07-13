@@ -9,10 +9,10 @@ import { ICreditFacility, CreditFacility } from '../credit-facility.model';
 import { CreditFacilityService } from '../service/credit-facility.service';
 import { IApplicant } from 'src/app/entities/applicant/applicant.model';
 import { ApplicantService } from 'src/app/entities/applicant/service/applicant.service';
-import { ICreditFacilityLoanLimit } from 'src/app/entities/credit-facility-loan-limit/credit-facility-loan-limit.model';
-import { CreditFacilityLoanLimitService } from 'src/app/entities/credit-facility-loan-limit/service/credit-facility-loan-limit.service';
 import { ICurrency } from 'src/app/entities/currency/currency.model';
 import { CurrencyService } from 'src/app/entities/currency/service/currency.service';
+import { ICreditFacilityLoanLimit } from 'src/app/entities/credit-facility-loan-limit/credit-facility-loan-limit.model';
+import { CreditFacilityLoanLimitService } from 'src/app/entities/credit-facility-loan-limit/service/credit-facility-loan-limit.service';
 import { Status } from 'src/app/entities/enumerations/status.model';
 
 @Component({
@@ -24,11 +24,12 @@ export class CreditFacilityUpdateComponent implements OnInit {
   statusValues = Object.keys(Status);
 
   applicantsCollection: IApplicant[] = [];
-  creditFacilityLoanLimitsSharedCollection: ICreditFacilityLoanLimit[] = [];
   currenciesSharedCollection: ICurrency[] = [];
+  creditFacilityLoanLimitsSharedCollection: ICreditFacilityLoanLimit[] = [];
 
   editForm = this.fb.group({
     id: [],
+    code: [null, [Validators.required]],
     totalLimit: [null, [Validators.required]],
     availableLimit: [null, [Validators.required]],
     startDate: [null, [Validators.required]],
@@ -39,15 +40,15 @@ export class CreditFacilityUpdateComponent implements OnInit {
     createdBy: [],
     createdOn: [],
     applicant: [],
-    creditFacilityLoanLimit: [],
     currency: [],
+    loanLimits: [],
   });
 
   constructor(
     protected creditFacilityService: CreditFacilityService,
     protected applicantService: ApplicantService,
-    protected creditFacilityLoanLimitService: CreditFacilityLoanLimitService,
     protected currencyService: CurrencyService,
+    protected creditFacilityLoanLimitService: CreditFacilityLoanLimitService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
   ) {}
@@ -78,12 +79,26 @@ export class CreditFacilityUpdateComponent implements OnInit {
     return item.id!;
   }
 
+  trackCurrencyById(_index: number, item: ICurrency): number {
+    return item.id!;
+  }
+
   trackCreditFacilityLoanLimitById(_index: number, item: ICreditFacilityLoanLimit): number {
     return item.id!;
   }
 
-  trackCurrencyById(_index: number, item: ICurrency): number {
-    return item.id!;
+  getSelectedCreditFacilityLoanLimit(
+    option: ICreditFacilityLoanLimit,
+    selectedVals?: ICreditFacilityLoanLimit[]
+  ): ICreditFacilityLoanLimit {
+    if (selectedVals) {
+      for (const selectedVal of selectedVals) {
+        if (option.id === selectedVal.id) {
+          return selectedVal;
+        }
+      }
+    }
+    return option;
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<ICreditFacility>>): void {
@@ -107,7 +122,8 @@ export class CreditFacilityUpdateComponent implements OnInit {
 
   protected updateForm(creditFacility: ICreditFacility): void {
     this.editForm.patchValue({
-      id: creditFacility.id || null,
+      id: creditFacility.id,
+      code: creditFacility.code,
       totalLimit: creditFacility.totalLimit,
       availableLimit: creditFacility.availableLimit,
       startDate: creditFacility.startDate,
@@ -118,21 +134,21 @@ export class CreditFacilityUpdateComponent implements OnInit {
       createdBy: creditFacility.createdBy,
       createdOn: creditFacility.createdOn,
       applicant: creditFacility.applicant,
-      creditFacilityLoanLimit: creditFacility.creditFacilityLoanLimit,
       currency: creditFacility.currency,
+      loanLimits: creditFacility.loanLimits,
     });
 
     this.applicantsCollection = this.applicantService.addApplicantToCollectionIfMissing(
       this.applicantsCollection,
       creditFacility.applicant
     );
-    this.creditFacilityLoanLimitsSharedCollection = this.creditFacilityLoanLimitService.addCreditFacilityLoanLimitToCollectionIfMissing(
-      this.creditFacilityLoanLimitsSharedCollection,
-      creditFacility.creditFacilityLoanLimit
-    );
     this.currenciesSharedCollection = this.currencyService.addCurrencyToCollectionIfMissing(
       this.currenciesSharedCollection,
       creditFacility.currency
+    );
+    this.creditFacilityLoanLimitsSharedCollection = this.creditFacilityLoanLimitService.addCreditFacilityLoanLimitToCollectionIfMissing(
+      this.creditFacilityLoanLimitsSharedCollection,
+      ...(creditFacility.loanLimits ?? [])
     );
   }
 
@@ -147,21 +163,6 @@ export class CreditFacilityUpdateComponent implements OnInit {
       )
       .subscribe((applicants: IApplicant[]) => (this.applicantsCollection = applicants));
 
-    this.creditFacilityLoanLimitService
-      .query()
-      .pipe(map((res: HttpResponse<ICreditFacilityLoanLimit[]>) => res.body ?? []))
-      .pipe(
-        map((creditFacilityLoanLimits: ICreditFacilityLoanLimit[]) =>
-          this.creditFacilityLoanLimitService.addCreditFacilityLoanLimitToCollectionIfMissing(
-            creditFacilityLoanLimits,
-            this.editForm.get('creditFacilityLoanLimit')!.value
-          )
-        )
-      )
-      .subscribe(
-        (creditFacilityLoanLimits: ICreditFacilityLoanLimit[]) => (this.creditFacilityLoanLimitsSharedCollection = creditFacilityLoanLimits)
-      );
-
     this.currencyService
       .query()
       .pipe(map((res: HttpResponse<ICurrency[]>) => res.body ?? []))
@@ -171,12 +172,28 @@ export class CreditFacilityUpdateComponent implements OnInit {
         )
       )
       .subscribe((currencies: ICurrency[]) => (this.currenciesSharedCollection = currencies));
+
+    this.creditFacilityLoanLimitService
+      .query()
+      .pipe(map((res: HttpResponse<ICreditFacilityLoanLimit[]>) => res.body ?? []))
+      .pipe(
+        map((creditFacilityLoanLimits: ICreditFacilityLoanLimit[]) =>
+          this.creditFacilityLoanLimitService.addCreditFacilityLoanLimitToCollectionIfMissing(
+            creditFacilityLoanLimits,
+            ...(this.editForm.get('loanLimits')!.value ?? [])
+          )
+        )
+      )
+      .subscribe(
+        (creditFacilityLoanLimits: ICreditFacilityLoanLimit[]) => (this.creditFacilityLoanLimitsSharedCollection = creditFacilityLoanLimits)
+      );
   }
 
   protected createFromForm(): ICreditFacility {
     return {
       ...new CreditFacility(),
       id: this.editForm.get(['id'])!.value,
+      code: this.editForm.get(['code'])!.value,
       totalLimit: this.editForm.get(['totalLimit'])!.value,
       availableLimit: this.editForm.get(['availableLimit'])!.value,
       startDate: this.editForm.get(['startDate'])!.value,
@@ -187,8 +204,8 @@ export class CreditFacilityUpdateComponent implements OnInit {
       createdBy: this.editForm.get(['createdBy'])!.value,
       createdOn: this.editForm.get(['createdOn'])!.value,
       applicant: this.editForm.get(['applicant'])!.value,
-      creditFacilityLoanLimit: this.editForm.get(['creditFacilityLoanLimit'])!.value,
       currency: this.editForm.get(['currency'])!.value,
+      loanLimits: this.editForm.get(['loanLimits'])!.value,
     };
   }
 }

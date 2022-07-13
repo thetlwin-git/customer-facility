@@ -1,11 +1,11 @@
 <div>
   <h2 id="page-heading" data-cy="ApplicantHeading">
-    <span>Applicants</span>
+    <span jhiTranslate="facilityApp.applicant.home.title">Applicants</span>
 
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="loadPage()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span>Refresh List</span>
+        <span jhiTranslate="facilityApp.applicant.home.refreshListLabel">Refresh List</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/applicant/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span> Create a new Applicant </span>
+        <span jhiTranslate="facilityApp.applicant.home.createLabel"> Create a new Applicant </span>
       </button>
     </div>
   </h2>
@@ -25,24 +25,44 @@
   <app-alert></app-alert>
 
   <div class="alert alert-warning" id="no-result" *ngIf="applicants?.length === 0">
-    <span>No applicants found</span>
+    <span jhiTranslate="facilityApp.applicant.home.notFound">No applicants found</span>
   </div>
 
   <div class="table-responsive" id="entities" *ngIf="applicants && applicants.length > 0">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
-          <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="fullName"><span>Full Name</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="email"><span>Email</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="phoneNumber"><span>Phone Number</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="address"><span>Address</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="status"><span>Status</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="editedBy"><span>Edited By</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="editedOn"><span>Edited On</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="createdBy"><span>Created By</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="createdOn"><span>Created On</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="user.login"><span>User</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fullName">
+            <span jhiTranslate="facilityApp.applicant.fullName">Full Name</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="email">
+            <span jhiTranslate="facilityApp.applicant.email">Email</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="phoneNumber">
+            <span jhiTranslate="facilityApp.applicant.phoneNumber">Phone Number</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="address">
+            <span jhiTranslate="facilityApp.applicant.address">Address</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="status">
+            <span jhiTranslate="facilityApp.applicant.status">Status</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="editedBy">
+            <span jhiTranslate="facilityApp.applicant.editedBy">Edited By</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="editedOn">
+            <span jhiTranslate="facilityApp.applicant.editedOn">Edited On</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="createdBy">
+            <span jhiTranslate="facilityApp.applicant.createdBy">Created By</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="createdOn">
+            <span jhiTranslate="facilityApp.applicant.createdOn">Created On</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="user.login">
+            <span jhiTranslate="facilityApp.applicant.user">User</span> <fa-icon icon="sort"></fa-icon>
+          </th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -55,7 +75,7 @@
           <td>{{ applicant.email }}</td>
           <td>{{ applicant.phoneNumber }}</td>
           <td>{{ applicant.address }}</td>
-          <td>{{ applicant.status }}</td>
+          <td jhiTranslate="{{ 'facilityApp.Status.' + applicant.status }}">{{ applicant.status }}</td>
           <td>{{ applicant.editedBy }}</td>
           <td>{{ applicant.editedOn | formatMediumDate }}</td>
           <td>{{ applicant.createdBy }}</td>
@@ -72,7 +92,7 @@
                 data-cy="entityDetailsButton"
               >
                 <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline">View</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
               </button>
 
               <button
@@ -82,12 +102,12 @@
                 data-cy="entityEditButton"
               >
                 <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline">Edit</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
               </button>
 
               <button type="submit" (click)="delete(applicant)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                 <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline">Delete</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
               </button>
             </div>
           </td>

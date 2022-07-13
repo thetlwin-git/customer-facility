@@ -1,7 +1,9 @@
 <div class="d-flex justify-content-center">
   <div class="col-8">
     <div *ngIf="creditFacilityLoanLimit">
-      <h2 data-cy="creditFacilityLoanLimitDetailsHeading"><span>Credit Facility Loan Limit</span></h2>
+      <h2 data-cy="creditFacilityLoanLimitDetailsHeading">
+        <span jhiTranslate="facilityApp.creditFacilityLoanLimit.detail.title">Credit Facility Loan Limit</span>
+      </h2>
 
       <hr />
 
@@ -10,35 +12,39 @@
       <app-alert></app-alert>
 
       <dl class="row-md jh-entity-details">
-        <dt><span>ID</span></dt>
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
         <dd>
           <span>{{ creditFacilityLoanLimit.id }}</span>
         </dd>
-        <dt><span>Total Limit</span></dt>
+        <dt><span jhiTranslate="facilityApp.creditFacilityLoanLimit.code">Code</span></dt>
+        <dd>
+          <span>{{ creditFacilityLoanLimit.code }}</span>
+        </dd>
+        <dt><span jhiTranslate="facilityApp.creditFacilityLoanLimit.totalLimit">Total Limit</span></dt>
         <dd>
           <span>{{ creditFacilityLoanLimit.totalLimit }}</span>
         </dd>
-        <dt><span>Status</span></dt>
+        <dt><span jhiTranslate="facilityApp.creditFacilityLoanLimit.status">Status</span></dt>
         <dd>
-          <span>{{ creditFacilityLoanLimit.status }}</span>
+          <span jhiTranslate="{{ 'facilityApp.Status.' + creditFacilityLoanLimit.status }}">{{ creditFacilityLoanLimit.status }}</span>
         </dd>
-        <dt><span>Edited By</span></dt>
+        <dt><span jhiTranslate="facilityApp.creditFacilityLoanLimit.editedBy">Edited By</span></dt>
         <dd>
           <span>{{ creditFacilityLoanLimit.editedBy }}</span>
         </dd>
-        <dt><span>Edited On</span></dt>
+        <dt><span jhiTranslate="facilityApp.creditFacilityLoanLimit.editedOn">Edited On</span></dt>
         <dd>
           <span>{{ creditFacilityLoanLimit.editedOn | formatMediumDate }}</span>
         </dd>
-        <dt><span>Created By</span></dt>
+        <dt><span jhiTranslate="facilityApp.creditFacilityLoanLimit.createdBy">Created By</span></dt>
         <dd>
           <span>{{ creditFacilityLoanLimit.createdBy }}</span>
         </dd>
-        <dt><span>Created On</span></dt>
+        <dt><span jhiTranslate="facilityApp.creditFacilityLoanLimit.createdOn">Created On</span></dt>
         <dd>
           <span>{{ creditFacilityLoanLimit.createdOn | formatMediumDate }}</span>
         </dd>
-        <dt><span>Loan Type</span></dt>
+        <dt><span jhiTranslate="facilityApp.creditFacilityLoanLimit.loanType">Loan Type</span></dt>
         <dd>
           <div *ngIf="creditFacilityLoanLimit.loanType">
             <a [routerLink]="['/loan-type', creditFacilityLoanLimit.loanType?.id, 'view']">{{ creditFacilityLoanLimit.loanType?.code }}</a>
@@ -47,11 +53,11 @@
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
-        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
       </button>
 
       <button type="button" [routerLink]="['/credit-facility-loan-limit', creditFacilityLoanLimit.id, 'edit']" class="btn btn-primary">
-        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
       </button>
     </div>
   </div>

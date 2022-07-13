@@ -1,11 +1,11 @@
 <div>
   <h2 id="page-heading" data-cy="CurrencyHeading">
-    <span>Currencies</span>
+    <span jhiTranslate="facilityApp.currency.home.title">Currencies</span>
 
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span>Refresh List</span>
+        <span jhiTranslate="facilityApp.currency.home.refreshListLabel">Refresh List</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/currency/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span> Create a new Currency </span>
+        <span jhiTranslate="facilityApp.currency.home.createLabel"> Create a new Currency </span>
       </button>
     </div>
   </h2>
@@ -25,21 +25,21 @@
   <app-alert></app-alert>
 
   <div class="alert alert-warning" id="no-result" *ngIf="currencies?.length === 0">
-    <span>No currencies found</span>
+    <span jhiTranslate="facilityApp.currency.home.notFound">No currencies found</span>
   </div>
 
   <div class="table-responsive" id="entities" *ngIf="currencies && currencies.length > 0">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr>
-          <th scope="col"><span>ID</span></th>
-          <th scope="col"><span>Code</span></th>
-          <th scope="col"><span>Label</span></th>
-          <th scope="col"><span>Status</span></th>
-          <th scope="col"><span>Edited By</span></th>
-          <th scope="col"><span>Edited On</span></th>
-          <th scope="col"><span>Created By</span></th>
-          <th scope="col"><span>Created On</span></th>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="facilityApp.currency.code">Code</span></th>
+          <th scope="col"><span jhiTranslate="facilityApp.currency.label">Label</span></th>
+          <th scope="col"><span jhiTranslate="facilityApp.currency.status">Status</span></th>
+          <th scope="col"><span jhiTranslate="facilityApp.currency.editedBy">Edited By</span></th>
+          <th scope="col"><span jhiTranslate="facilityApp.currency.editedOn">Edited On</span></th>
+          <th scope="col"><span jhiTranslate="facilityApp.currency.createdBy">Created By</span></th>
+          <th scope="col"><span jhiTranslate="facilityApp.currency.createdOn">Created On</span></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -50,7 +50,7 @@
           </td>
           <td>{{ currency.code }}</td>
           <td>{{ currency.label }}</td>
-          <td>{{ currency.status }}</td>
+          <td jhiTranslate="{{ 'facilityApp.Status.' + currency.status }}">{{ currency.status }}</td>
           <td>{{ currency.editedBy }}</td>
           <td>{{ currency.editedOn | formatMediumDate }}</td>
           <td>{{ currency.createdBy }}</td>
@@ -64,7 +64,7 @@
                 data-cy="entityDetailsButton"
               >
                 <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline">View</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
               </button>
 
               <button
@@ -74,12 +74,12 @@
                 data-cy="entityEditButton"
               >
                 <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline">Edit</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
               </button>
 
               <button type="submit" (click)="delete(currency)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                 <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline">Delete</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
               </button>
             </div>
           </td>

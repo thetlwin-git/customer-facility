@@ -22,7 +22,7 @@ export class ApplicantUpdateComponent implements OnInit {
   usersSharedCollection: IUser[] = [];
 
   editForm = this.fb.group({
-    id: [null],
+    id: [],
     fullName: [],
     email: [],
     phoneNumber: [],

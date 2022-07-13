@@ -1,28 +1,30 @@
 <div class="d-flex justify-content-center">
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <h2 id="app-applicant-heading" data-cy="ApplicantCreateUpdateHeading">Create or edit a Applicant</h2>
+      <h2 id="app-applicant-heading" data-cy="ApplicantCreateUpdateHeading" jhiTranslate="facilityApp.applicant.home.createOrEditLabel">
+        Create or edit a Applicant
+      </h2>
 
       <div>
         <app-alert-error></app-alert-error>
 
         <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
-          <label class="form-label" for="field_id">ID</label>
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" for="field_fullName">Full Name</label>
+          <label class="form-label" jhiTranslate="facilityApp.applicant.fullName" for="field_fullName">Full Name</label>
           <input type="text" class="form-control" name="fullName" id="field_fullName" data-cy="fullName" formControlName="fullName" />
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" for="field_email">Email</label>
+          <label class="form-label" jhiTranslate="facilityApp.applicant.email" for="field_email">Email</label>
           <input type="text" class="form-control" name="email" id="field_email" data-cy="email" formControlName="email" />
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" for="field_phoneNumber">Phone Number</label>
+          <label class="form-label" jhiTranslate="facilityApp.applicant.phoneNumber" for="field_phoneNumber">Phone Number</label>
           <input
             type="text"
             class="form-control"
@@ -34,28 +36,30 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" for="field_address">Address</label>
+          <label class="form-label" jhiTranslate="facilityApp.applicant.address" for="field_address">Address</label>
           <input type="text" class="form-control" name="address" id="field_address" data-cy="address" formControlName="address" />
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" for="field_status">Status</label>
+          <label class="form-label" jhiTranslate="facilityApp.applicant.status" for="field_status">Status</label>
           <select class="form-control" name="status" formControlName="status" id="field_status" data-cy="status">
-            <option [ngValue]="null"></option>
-            <option *ngFor="let status of statusValues" [value]="status">status</option>
+            <option [ngValue]="null">{{ 'facilityApp.Status.null' | translate }}</option>
+            <option *ngFor="let status of statusValues" [value]="status">{{ 'facilityApp.Status.' + status | translate }}</option>
           </select>
           <div *ngIf="editForm.get('status')!.invalid && (editForm.get('status')!.dirty || editForm.get('status')!.touched)">
-            <small class="form-text text-danger" *ngIf="editForm.get('status')?.errors?.required"> This field is required. </small>
+            <small class="form-text text-danger" *ngIf="editForm.get('status')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
           </div>
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" for="field_editedBy">Edited By</label>
+          <label class="form-label" jhiTranslate="facilityApp.applicant.editedBy" for="field_editedBy">Edited By</label>
           <input type="text" class="form-control" name="editedBy" id="field_editedBy" data-cy="editedBy" formControlName="editedBy" />
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" for="field_editedOn">Edited On</label>
+          <label class="form-label" jhiTranslate="facilityApp.applicant.editedOn" for="field_editedOn">Edited On</label>
           <div class="input-group">
             <input
               id="field_editedOn"
@@ -72,12 +76,12 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" for="field_createdBy">Created By</label>
+          <label class="form-label" jhiTranslate="facilityApp.applicant.createdBy" for="field_createdBy">Created By</label>
           <input type="text" class="form-control" name="createdBy" id="field_createdBy" data-cy="createdBy" formControlName="createdBy" />
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" for="field_createdOn">Created On</label>
+          <label class="form-label" jhiTranslate="facilityApp.applicant.createdOn" for="field_createdOn">Created On</label>
           <div class="input-group">
             <input
               id="field_createdOn"
@@ -94,7 +98,7 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" for="field_user">User</label>
+          <label class="form-label" jhiTranslate="facilityApp.applicant.user" for="field_user">User</label>
           <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user">
             <option [ngValue]="null"></option>
             <option
@@ -109,7 +113,7 @@
 
       <div>
         <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
         </button>
 
         <button
@@ -119,7 +123,7 @@
           [disabled]="editForm.invalid || isSaving"
           class="btn btn-primary"
         >
-          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
         </button>
       </div>
     </form>

@@ -23,6 +23,7 @@ export class CreditFacilityLoanLimitUpdateComponent implements OnInit {
 
   editForm = this.fb.group({
     id: [],
+    code: [null, [Validators.required]],
     totalLimit: [null, [Validators.required]],
     status: [null, [Validators.required]],
     editedBy: [],
@@ -87,6 +88,7 @@ export class CreditFacilityLoanLimitUpdateComponent implements OnInit {
   protected updateForm(creditFacilityLoanLimit: ICreditFacilityLoanLimit): void {
     this.editForm.patchValue({
       id: creditFacilityLoanLimit.id,
+      code: creditFacilityLoanLimit.code,
       totalLimit: creditFacilityLoanLimit.totalLimit,
       status: creditFacilityLoanLimit.status,
       editedBy: creditFacilityLoanLimit.editedBy,
@@ -118,6 +120,7 @@ export class CreditFacilityLoanLimitUpdateComponent implements OnInit {
     return {
       ...new CreditFacilityLoanLimit(),
       id: this.editForm.get(['id'])!.value,
+      code: this.editForm.get(['code'])!.value,
       totalLimit: this.editForm.get(['totalLimit'])!.value,
       status: this.editForm.get(['status'])!.value,
       editedBy: this.editForm.get(['editedBy'])!.value,

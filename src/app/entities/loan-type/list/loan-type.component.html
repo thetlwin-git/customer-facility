@@ -1,11 +1,11 @@
 <div>
   <h2 id="page-heading" data-cy="LoanTypeHeading">
-    <span>Loan Types</span>
+    <span jhiTranslate="facilityApp.loanType.home.title">Loan Types</span>
 
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span>Refresh List</span>
+        <span jhiTranslate="facilityApp.loanType.home.refreshListLabel">Refresh List</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/loan-type/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span> Create a new Loan Type </span>
+        <span jhiTranslate="facilityApp.loanType.home.createLabel"> Create a new Loan Type </span>
       </button>
     </div>
   </h2>
@@ -25,21 +25,21 @@
   <app-alert></app-alert>
 
   <div class="alert alert-warning" id="no-result" *ngIf="loanTypes?.length === 0">
-    <span>No loanTypes found</span>
+    <span jhiTranslate="facilityApp.loanType.home.notFound">No loanTypes found</span>
   </div>
 
   <div class="table-responsive" id="entities" *ngIf="loanTypes && loanTypes.length > 0">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr>
-          <th scope="col"><span>ID</span></th>
-          <th scope="col"><span>Code</span></th>
-          <th scope="col"><span>Label</span></th>
-          <th scope="col"><span>Status</span></th>
-          <th scope="col"><span>Edited By</span></th>
-          <th scope="col"><span>Edited On</span></th>
-          <th scope="col"><span>Created By</span></th>
-          <th scope="col"><span>Created On</span></th>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="facilityApp.loanType.code">Code</span></th>
+          <th scope="col"><span jhiTranslate="facilityApp.loanType.label">Label</span></th>
+          <th scope="col"><span jhiTranslate="facilityApp.loanType.status">Status</span></th>
+          <th scope="col"><span jhiTranslate="facilityApp.loanType.editedBy">Edited By</span></th>
+          <th scope="col"><span jhiTranslate="facilityApp.loanType.editedOn">Edited On</span></th>
+          <th scope="col"><span jhiTranslate="facilityApp.loanType.createdBy">Created By</span></th>
+          <th scope="col"><span jhiTranslate="facilityApp.loanType.createdOn">Created On</span></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -50,7 +50,7 @@
           </td>
           <td>{{ loanType.code }}</td>
           <td>{{ loanType.label }}</td>
-          <td>{{ loanType.status }}</td>
+          <td jhiTranslate="{{ 'facilityApp.Status.' + loanType.status }}">{{ loanType.status }}</td>
           <td>{{ loanType.editedBy }}</td>
           <td>{{ loanType.editedOn | formatMediumDate }}</td>
           <td>{{ loanType.createdBy }}</td>
@@ -64,7 +64,7 @@
                 data-cy="entityDetailsButton"
               >
                 <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline">View</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
               </button>
 
               <button
@@ -74,12 +74,12 @@
                 data-cy="entityEditButton"
               >
                 <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline">Edit</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
               </button>
 
               <button type="submit" (click)="delete(loanType)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                 <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline">Delete</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
               </button>
             </div>
           </td>
