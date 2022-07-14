@@ -130,7 +130,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let loanPayment of loanPayments | transaction:{status: 'DELETED', loanId: loan.id}; trackBy: trackIdLP">
+                      <tr *ngFor="let loanPayment of loanPayments | transaction:{status: 'DELETED', loanId: loan.id} | orderBy:'id':'asc'; trackBy: trackIdLP">
                         <th scope="row">{{loanPayment.id}}</th>
                         <td>{{loanPayment.amount}}</td>
                         <td>{{loanPayment.paymentDate | formatMediumDate }}</td>

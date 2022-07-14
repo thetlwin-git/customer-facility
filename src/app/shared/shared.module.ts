@@ -11,6 +11,7 @@ import { SortByDirective } from './sort/sort-by.directive';
 import { SortDirective } from './sort/sort.directive';
 import { ItemCountComponent } from './pagination/item-count.component';
 import { TransactionPipe } from './pipe/transaction.pipe';
+import { OrderByPipe } from './pipe/order-by.pipe';
 
 @NgModule({
   imports: [SharedLibsModule],
@@ -24,7 +25,8 @@ import { TransactionPipe } from './pipe/transaction.pipe';
     SortByDirective,
     SortDirective,
     ItemCountComponent,
-    TransactionPipe
+    TransactionPipe,
+    OrderByPipe
   ],
   exports: [
     SharedLibsModule,
@@ -37,7 +39,8 @@ import { TransactionPipe } from './pipe/transaction.pipe';
     SortByDirective,
     SortDirective,
     ItemCountComponent,
-    TransactionPipe
+    TransactionPipe,
+    OrderByPipe
   ],
 })
 export class SharedModule {}

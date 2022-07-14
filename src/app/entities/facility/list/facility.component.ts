@@ -12,6 +12,7 @@ import { ILoanPayment, getLoanPaymentIdentifier } from '../model/loan-payment.mo
 import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'src/app/config/pagination.constants';
 import { FacilityService } from '../service/facility.service';
 import { LoanPaymentService } from '../service/loan-payment.service';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-facility',

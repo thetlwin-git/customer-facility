@@ -10,7 +10,7 @@ export const environment = {
     baseUrl: 'http://localhost:4200/',
   },
   socketConfig: {
-    url: 'http://localhost:3000/',
+    url: 'http://localhost:8080/',
     opts: {},
   }
 };
