@@ -21,6 +21,8 @@ export interface ILoan {
   currency?: ICurrency | null;
   facility?: ICreditFacility | null;
   loanType?: ILoanType | null;
+  paymentCollpse?: boolean | true;
+  tranCollpse?: boolean | true;
 }
 
 export class Loan implements ILoan {
@@ -40,7 +42,8 @@ export class Loan implements ILoan {
     public createdOn?: dayjs.Dayjs | null,
     public currency?: ICurrency | null,
     public facility?: ICreditFacility | null,
-    public loanType?: ILoanType | null
+    public loanType?: ILoanType | null,
+    public tranCollpse?: boolean | true
   ) {}
 }
 

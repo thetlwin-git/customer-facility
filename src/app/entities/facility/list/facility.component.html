@@ -27,7 +27,7 @@
     <span>{{loans[0].facility?.code}} - {{loans[0].currency?.code}}</span>
   </h1>
 
-  <table class="table" *ngIf="loans && loans.length > 0">
+  <!-- <table class="table" *ngIf="loans && loans.length > 0">
     <thead>
       <tr>
         <th scope="col">Total Limit</th>
@@ -44,28 +44,29 @@
         <td>{{loans[0].facility?.endDate| formatMediumDate }}</td>
       </tr>
     </tbody>
-  </table>
+  </table> -->
 
   <div id="entities" *ngIf="loans && loans.length > 0">
     <div class="card" *ngFor="let loan of loans; trackBy: trackId" data-cy="loan">
       <div class="card-body">
         <h1 class="card-title display-6">
-          <span>{{loan.loanType?.label}}</span>
+          <span>{{loan.loanType?.code}} - {{loan.loanType?.label}}</span>
         </h1>
 
         <div class="table-responsive">
           <table class="table">
-            <caption>Summary of loan</caption>
+            <caption>Summary of {{loan.loanType?.label | lowercase}}</caption>
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">Amount</th>
+                <th scope="col">Loan Amount</th>
                 <th scope="col">Start Date</th>
                 <th scope="col">End Date</th>
                 <th scope="col">Interest Rate</th>
                 <th scope="col">Interest Amount</th>
                 <th scope="col">Total Payment Amount</th>
                 <th scope="col">Remaining Amount</th>
+                <th scope="col"></th>
               </tr>
             </thead>
             <tbody>
@@ -78,11 +79,70 @@
                 <td>{{loan.interestAmount}}</td>
                 <td>{{loan.totalPaymentAmount}}</td>
                 <td>{{loan.remainingAmount}}</td>
+                <td>
+                  <a class="btn btn-outline-primary btn-sm" role="button" (click)="loan.paymentCollpse = !loan.paymentCollpse" [attr.aria-expanded]="!loan.paymentCollpse">
+                    Make a payment
+                  </a>
+                  <a class="btn btn-outline-primary btn-sm" role="button" (click)="loan.tranCollpse = !loan.tranCollpse" [attr.aria-expanded]="!loan.tranCollpse">
+                    Transaction details
+                  </a>
+                </td>
               </tr>
             </tbody>
           </table>
         </div>
 
+        <div #payollapse [id]="loan.id" [(ngbCollapse)]="loan.paymentCollpse!">
+          <form #paymentForm (ngSubmit)="onSubmit({amount: +payAmount.value, loanId: loan.id})" >
+            <div class="card">
+            <div class="card-body">
+              <div class="mb-3 row">
+                <label for="payment-amount" class="col-auto col-form-label">Payment</label>
+                <div class="col-auto">
+                  <div class="input-group">
+                    <span class="input-group-text" id="basic-addon1">{{loan.currency?.code}}</span>
+                    <input #payAmount type="text" class="form-control bg-white" placeholder="Amount" aria-label="Amount" aria-describedby="loan-amount">
+                  </div>
+                </div>
+                <div class="col-auto">
+                  <button type="submit" class="btn btn-outline-primary" (click)="loan.paymentCollpse = !loan.paymentCollpse">Submit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          </form>
+          
+        </div>
+
+        <div #tranCollapse [id]="loan.id" [(ngbCollapse)]="loan.tranCollpse!" class="mt-2">
+          <div class="card">
+            <div class="card-body">
+              <div class="mb-3 row">
+                <div class="table-responsive">
+                  <table class="table" *ngIf="loanPayments && loanPayments.length > 0">
+                    <caption>Summary of Transactions</caption>
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Payment Date</th>
+                        <th scope="col">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let loanPayment of loanPayments | transaction:{status: 'DELETED', loanId: loan.id}; trackBy: trackIdLP">
+                        <th scope="row">{{loanPayment.id}}</th>
+                        <td>{{loanPayment.amount}}</td>
+                        <td>{{loanPayment.paymentDate | formatMediumDate }}</td>
+                        <td>{{loanPayment.status?.label}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

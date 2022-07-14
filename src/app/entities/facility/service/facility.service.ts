@@ -9,22 +9,32 @@ import { DATE_FORMAT } from 'src/app/config/input.constants';
 import { ApplicationConfigService } from 'src/app/core/config/application-config.service';
 import { createRequestOption } from 'src/app/core/request/request-util';
 import { ILoan, getLoanIdentifier } from '../model/loan.model';
+import { ILoanPayment } from '../model/loan-payment.model';
 
 export type EntityResponseType = HttpResponse<ILoan>;
 export type EntityArrayResponseType = HttpResponse<ILoan[]>;
 
+export type EntityResponseTypeLP = HttpResponse<ILoanPayment>;
+export type EntityArrayResponseTypeLP = HttpResponse<ILoanPayment[]>;
+
 @Injectable({ providedIn: 'root' })
 export class FacilityService {
     //   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/loans');
-    protected facilityUrl = this.applicationConfigService.getEndpointFor('api/facility/loans');
+    protected facilityUrl = this.applicationConfigService.getEndpointFor('api/facility');
 
     constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) { }
 
     query(req?: any): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
         return this.http
-            .get<ILoan[]>(this.facilityUrl, { params: options, observe: 'response' })
+            .get<ILoan[]>(this.facilityUrl + '/loans', { params: options, observe: 'response' })
             .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+    }
+
+    makePayment(data:any): Observable<EntityResponseTypeLP> {
+        return this.http
+            .post<any>(this.facilityUrl + '/make-payment', data, { observe: 'response' })
+            .pipe(map((res: EntityResponseTypeLP) => this.convertDateFromServerLP(res)));
     }
 
     addLoanToCollectionIfMissing(loanCollection: ILoan[], ...loansToCheck: (ILoan | null | undefined)[]): ILoan[] {
@@ -57,6 +67,14 @@ export class FacilityService {
         if (res.body) {
             res.body.startDate = res.body.startDate ? dayjs(res.body.startDate) : undefined;
             res.body.endDate = res.body.endDate ? dayjs(res.body.endDate) : undefined;
+            res.body.editedOn = res.body.editedOn ? dayjs(res.body.editedOn) : undefined;
+            res.body.createdOn = res.body.createdOn ? dayjs(res.body.createdOn) : undefined;
+        }
+        return res;
+    }
+
+    protected convertDateFromServerLP(res: EntityResponseTypeLP): EntityResponseTypeLP {
+        if (res.body) {
             res.body.editedOn = res.body.editedOn ? dayjs(res.body.editedOn) : undefined;
             res.body.createdOn = res.body.createdOn ? dayjs(res.body.createdOn) : undefined;
         }
