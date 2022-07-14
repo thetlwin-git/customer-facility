@@ -1,13 +1,13 @@
 export const environment = {
   production: true,
   serverApi: {
-    baseUrl: 'http://localhost:8080/',
+    baseUrl: 'https://credit-facility.herokuapp.com/',
   },
   client: {
     baseUrl: 'http://localhost:4200/',
   },
   socketConfig: {
-    url: 'http://localhost:3000/',
+    url: 'https://credit-facility.herokuapp.com/',
     opts: {},
   }
 };
