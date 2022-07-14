@@ -11,43 +11,12 @@
     <span>No Facilities found</span>
   </div>
 
-  <!-- <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0" id="entities" *ngIf="loans && loans.length > 0">
-    <ngb-panel *ngFor="let loan of loans; trackBy: trackId" data-cy="entityTable">
-      <ng-template ngbPanelTitle>
-        <span>{{loan.facility?.code}} - {{loan.currency?.code}}</span>
-        <span> ({{loan.loanType?.label}}) </span>
-      </ng-template>
-      <ng-template ngbPanelContent>
-        {{loan.amount}}
-      </ng-template>
-    </ngb-panel>
-  </ngb-accordion> -->
-
   <h1 class="display-5" *ngIf="loans && loans.length > 0">
     <span>{{loans[0].facility?.code}} - {{loans[0].currency?.code}}</span>
   </h1>
 
-  <!-- <table class="table" *ngIf="loans && loans.length > 0">
-    <thead>
-      <tr>
-        <th scope="col">Total Limit</th>
-        <th scope="col">Available Limit</th>
-        <th scope="col">Start Date</th>
-        <th scope="col">End Date</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>{{loans[0].facility?.totalLimit}}</td>
-        <td>{{loans[0].facility?.availableLimit}}</td>
-        <td>{{loans[0].facility?.startDate| formatMediumDate }}</td>
-        <td>{{loans[0].facility?.endDate| formatMediumDate }}</td>
-      </tr>
-    </tbody>
-  </table> -->
-
   <div id="entities" *ngIf="loans && loans.length > 0">
-    <div class="card" *ngFor="let loan of loans; trackBy: trackId" data-cy="loan">
+    <div class="card" *ngFor="let loan of loans | orderBy:'id':'asc'; trackBy: trackId" data-cy="loan">
       <div class="card-body">
         <h1 class="card-title display-6">
           <span>{{loan.loanType?.code}} - {{loan.loanType?.label}}</span>
